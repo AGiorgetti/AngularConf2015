@@ -13,6 +13,13 @@
     "gulp-sourcemaps": "^1.5.2",
     "gulp-tslint": "^3.3.0-beta",
     "typescript": "^1.6.2",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "gulp-inject": "^3.0.0",
+    "gulp-angular-filesort": "^1.1.1"
+  },
+  "dependencies": {
+    "jquery": "^2.1.4",
+    "angular": "^1.4.7",
+    "bootstrap": "^3.3.5"
   }
 }

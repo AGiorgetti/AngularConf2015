@@ -3,7 +3,18 @@ var ts = require("gulp-typescript");
 var sourcemaps = require("gulp-sourcemaps");
 var typescript = require("typescript");
 var tslint = require("gulp-tslint");
-var path = require('path');
+var path = require("path");
+var inject = require("gulp-inject");
+var angularFilesort = require("gulp-angular-filesort");
+//var browserSync = require("browser-sync");
+
+// http://blog.rangle.io/angular-gulp-bestpractices/
+
+var paths = {
+  src: "./src/", // actual source code
+  build: "./build/", // compilation artifacts (tmp)
+  dist: "./dist/" // distribution files
+}
 
 // gulp-sourcemaps work well for a browser, it does not with vscode, for that to work use the plain command line compiler to emit source maps. 
 
@@ -19,23 +30,26 @@ var tsOptions = {
   module: "commonjs" //"AMD" // "commonjs" // values ["AMD", "commonjs", "UMD", "system"]
 };
 
-var tsFiles = ["src/**/*.ts", "typings/**/*.d.ts"];
+var tsFiles = [paths.src + "**/*.ts", "typings/**/*.d.ts"];
 var source = gulp.src(tsFiles);
 
-gulp.task("tslint", function() {
+gulp.task("tslint", function () {
   return source
     .pipe(tslint())
     .pipe(tslint.report("verbose"));
 });
 
 // build with sourcemaps support
-gulp.task("build-ts", function () {
+
+gulp.task("build-ts", ["compile-ts", "inject"]);
+
+gulp.task("compile-ts", function () {
   var tsResult = source
     .pipe(sourcemaps.init())
     .pipe(ts(tsOptions));
   return tsResult.js
-    //.pipe(sourcemaps.write(".", {includeContent: true})) // sourcemaps will be generated on an external file
-    //.pipe(sourcemaps.write()) // sourcemap added to the source file (does not work either works with vscode debugger)
+  //.pipe(sourcemaps.write(".", {includeContent: true})) // sourcemaps will be generated on an external file
+  //.pipe(sourcemaps.write()) // sourcemap added to the source file (does not work either works with vscode debugger)
     .pipe(sourcemaps.write(".", { // allow VSCode debugger to work: https://github.com/ivogabe/gulp-typescript/issues/201
       // Return relative source map root directories per file.
       sourceRoot: function (file) {
@@ -44,18 +58,32 @@ gulp.task("build-ts", function () {
       }
     }))
     
-    /*
-    .pipe(sourcemaps.write({ // allow VSCode debugger to work: https://github.com/ivogabe/gulp-typescript/issues/201
-      // Return relative source map root directories per file.
-      sourceRoot: function (file) {
-        var sourceFile = path.join(file.cwd, file.sourceMap.file);
-        return path.relative(path.dirname(sourceFile), file.cwd); // + "/../src";  // will probide the right location of the source files relative to the build folder
-      }
-    }))
-    */
-    .pipe(gulp.dest("build/"));
+  /*
+  .pipe(sourcemaps.write({ // allow VSCode debugger to work: https://github.com/ivogabe/gulp-typescript/issues/201
+    // Return relative source map root directories per file.
+    sourceRoot: function (file) {
+      var sourceFile = path.join(file.cwd, file.sourceMap.file);
+      return path.relative(path.dirname(sourceFile), file.cwd); // + "/../src";  // will probide the right location of the source files relative to the build folder
+    }
+  }))
+  */
+    .pipe(gulp.dest(paths.build));
 });
 
-gulp.task("watch", function() {
-  gulp.watch(tsFiles, ['build-ts']);  
+gulp.task("watch", function () {
+  gulp.watch(tsFiles, ['build-ts']);
+});
+
+
+// inject compiled and artifacts
+
+// https://github.com/klei/gulp-inject/wiki/Clarifying-injected-paths
+gulp.task("inject", ["compile-ts"], function () {
+
+  gulp.src(paths.src + "/index.html")
+    .pipe(inject(
+      gulp.src([paths.build + "**/*.js"]).pipe(angularFilesort())
+      , {relative: true}))
+    .pipe(gulp.dest(paths.build));
+
 });

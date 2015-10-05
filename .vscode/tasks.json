@@ -67,6 +67,18 @@
             ]
         },
 		{
+            "taskName": "inject",
+            //"args": [],
+            "isBuildCommand": false,
+            //"problemMatcher": "$msCompile",
+			"showOutput": "always",
+			"problemMatcher": [
+                "$lessCompile",
+                "$tsc",
+                "$jshint"
+            ]
+        },
+		{
 			"taskName": "tslint",
             //"args": [],
             "isBuildCommand": false,
