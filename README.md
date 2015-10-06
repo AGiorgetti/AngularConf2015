@@ -34,3 +34,8 @@ npm install
 Purge global caches:
 
 tsd purge
+
+
+Notes:
+- VSCode trick: if you place a tsconfig.json file on the root VSCode will internally pick that and use it. This way any .ts and .d.ts will be read and compiled and there will be no need to add /// <reference path="tsd.d.ts" /> all around
+				

@@ -1,0 +1,26 @@
+<div>
+	<h1>Todo List: Directive</h1>
+
+	<div>
+		<span>Task:</span>
+		<input type="text" ng-model="task">
+		<button type="button" class="btn btn-default>" ng-click="vm.addTodo(task)">Add ToDo</button>
+	</div>
+	<br>
+	<div>
+		<table>
+			<tr ng-repeat="todo in vm.todos track by todo.id">
+				<td>{{todo.id}}</td>
+				<td>{{todo.task}}</td>
+				<td>
+					<input type="checkbox" ng-model="todo.completed">
+				</td>
+				<td>
+					<button type="button" class="btn btn-default" ng-click="vm.removeTodo(todo.id)">Delete</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<code>{{vm.todos | json}}</code>
+
+</div>

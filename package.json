@@ -15,11 +15,13 @@
     "typescript": "^1.6.2",
     "path": "^0.12.7",
     "gulp-inject": "^3.0.0",
-    "gulp-angular-filesort": "^1.1.1"
+    "gulp-angular-filesort": "^1.1.1",
+    "express": "^4.13.3"
   },
   "dependencies": {
     "jquery": "^2.1.4",
     "angular": "^1.4.7",
+    "angular-route": "^1.4.7",
     "bootstrap": "^3.3.5"
   }
 }

@@ -41,7 +41,7 @@ gulp.task("tslint", function () {
 
 // build with sourcemaps support
 
-gulp.task("build-ts", ["compile-ts", "inject"]);
+gulp.task("build-ts", ["copy-templates", "compile-ts", "inject"]);
 
 gulp.task("compile-ts", function () {
   var tsResult = source
@@ -77,13 +77,18 @@ gulp.task("watch", function () {
 
 // inject compiled and artifacts
 
+gulp.task("copy-templates", function () {
+  gulp.src(paths.src + "**/*.html")
+    .pipe(gulp.dest(paths.build));
+})
+
 // https://github.com/klei/gulp-inject/wiki/Clarifying-injected-paths
 gulp.task("inject", ["compile-ts"], function () {
 
-  gulp.src(paths.src + "/index.html")
+  gulp.src(paths.src + "index.html")
     .pipe(inject(
       gulp.src([paths.build + "**/*.js"]).pipe(angularFilesort())
-      , {relative: true}))
+      , { relative: true }))
     .pipe(gulp.dest(paths.build));
 
 });

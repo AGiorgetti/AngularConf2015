@@ -7,4 +7,12 @@
 	// relative path is not working
 	//"typescript.tsdk": "${workspaceRoot}\\node_modules\\typescript\\lib"
 	//"typescript.tsdk": "node_modules/typescript/lib"
+	
+	// JavaScript
+	
+	// Always include all words from the current document.
+	//"javascript.suggest.alwaysAllWords": true
+
+	// Complete functions with their parameter signature.
+	//"javascript.suggest.useCodeSnippetsOnMethodSuggest": true
 }
