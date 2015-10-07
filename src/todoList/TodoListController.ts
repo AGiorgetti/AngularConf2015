@@ -1,11 +1,15 @@
 namespace AngularConf15 {
 
+	/**
+	 * a controller for the todo list: we're going to use controllerAs syntax
+	 */
 	class TodoListController {
 		
 		todos: TodoItem[];
 		
 		static $inject = ["TodoListService"];
 		constructor(
+			// shortcut for creating a private member on the class
 			private todoListService: TodoListService			
 		) {
 			this.todos = todoListService.todos;

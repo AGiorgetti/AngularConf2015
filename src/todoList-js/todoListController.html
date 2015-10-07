@@ -1,0 +1,42 @@
+<div ng-controller="TodoListJsController as vm">
+	<h1>Todo List: binding to Controller</h1>
+
+	<form class="form-inline">
+		<div class="form-group">
+			<label>Task: </label>
+			<input type="text" class="form-control" ng-model="task">
+		</div>
+		<button type="button" class="btn btn-default>" ng-click="vm.addTodo(task)">Add ToDo</button>
+	</form>
+	<br>
+	<div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Task</th>
+					<th>Completed</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="todo in vm.todos track by todo.id">
+					<td>{{todo.id}}</td>
+					<td>{{todo.task}}</td>
+					<td>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="todo.completed">
+							</label>
+						</div>
+					</td>
+					<td>
+						<button type="button" class="btn btn-default" ng-click="vm.removeTodo(todo.id)">Delete</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<pre>{{vm | json}}</pre>
+
+</div>

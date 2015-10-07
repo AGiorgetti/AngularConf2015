@@ -18,7 +18,7 @@ namespace AngularConf15 {
 		 * adds a new task to the list!
 		 */
 		addTodo(task: string): TodoItem {
-			var newItm = new TodoItem(this.getNextId(), task);
+			let newItm = new TodoItem(this.getNextId(), task);
 			this.todos.push(newItm);
 			return newItm;
 		}
