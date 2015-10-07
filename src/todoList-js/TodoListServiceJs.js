@@ -3,36 +3,48 @@
  * 
  * immagine this is going to interact with an external service
  */
-function TodoListJsService() {
+TodoListJsService.$inject = ["$http"];
+function TodoListJsService($http) {
 	var self = this;
 
 	this.todos = [];
 
-	var _idSeed = 0;
-	function getNextId() {
-		return _idSeed++;
-	}
-		
-	/**
-		 * adds a new task to the list!
-		 */
-	this.addTodo = function (task) {
-		var newItem = new TodoItemJs(getNextId(), task);
-		self.todos.push(newItem);
-		return newItem;
-	}
-		
-	/**
-		 * removes a task from the list
-		 */
-	this.removeTodo = function (id) {
-		for (var i = 0; i < self.todos.length; i++) {
-			if (self.todos[i].id === id) {
-				self.todos.splice(i, 1);
-				return;
+	function init() {
+		$http.get("/api/list").success(function (todos) {
+			// do not change the instance! can be dangerous depending on how we do the bindings
+			for (var i = 0; i < todos.length; i++) {
+				var itm = todos[i];
+				self.todos.push(itm);
 			}
-		}
+		});
 	}
+
+	/**
+	 * adds a new task to the list!
+	 */
+	this.addTodo = function (task) {
+		$http.post("/api/list", { "task": task }).success(function (newTodoItem) {
+			// update the local copy
+			self.todos.push(newTodoItem);
+		});
+	}
+		
+	/**
+	 * removes a task from the list
+	 */
+	this.removeTodo = function (id) {
+		$http.delete("/api/list/" + id).success(function (deletedItem) {
+			// update the local list
+			for (var i = 0; i < self.todos.length; i++) {
+				if (self.todos[i].id === deletedItem.id) {
+					self.todos.splice(i, 1);
+					return;
+				}
+			}
+		});
+	}
+
+	init();
 }
 
 angular.module("app")
