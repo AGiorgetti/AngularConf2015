@@ -1,5 +1,7 @@
 /**
  * a Service used to manage the todo items
+ * 
+ * immagine this is going to interact with an external service
  */
 function TodoListJsService() {
 	var self = this;

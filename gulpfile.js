@@ -27,7 +27,7 @@ var tsOptions = {
   //suppressExcessPropertyErrors: true, // typescript 1.6 breaking change!
   experimentalAsyncFunctions: true,
   noExternalResolve: true, // we provide all the file by ourselves, no <reference> is needed
-  module: "commonjs" //"AMD" // "commonjs" // values ["AMD", "commonjs", "UMD", "system"]
+  module: "AMD" //"AMD" // "commonjs" // values ["AMD", "commonjs", "UMD", "system"]
 };
 
 var tsFiles = [paths.src + "**/*.ts", "typings/**/*.d.ts"];
