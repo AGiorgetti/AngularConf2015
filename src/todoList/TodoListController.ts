@@ -5,7 +5,7 @@ namespace AngularConf15 {
 	 */
 	class TodoListController {
 		
-		todos: TodoItem[];
+		todos: ITodoItem[];
 		
 		static $inject = ["TodoListService"];
 		constructor(

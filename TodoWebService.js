@@ -52,7 +52,7 @@ app.delete("/api/list/:id", function (req, res) {
 
 // todo: enable notifications to connected clients that something changed
 
-var server = app.listen(process.env.port || 3010, function () {
+var server = app.listen(process.env.port || 3000, function () {
 
 	var host = server.address().address;
 	var port = server.address().port;
