@@ -3,7 +3,7 @@ namespace AngularConf15 {
 	/**
 	 * a Service used to manage the todo items
 	 */
-	export class InMemoryTodoListService {
+	export class InMemoryTodoListService implements ITodoListService {
 		
 		// keeps the list of tasks 
 		todos: ITodoItem[] = [];

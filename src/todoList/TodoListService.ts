@@ -9,7 +9,7 @@ namespace AngularConf15 {
 	/**
 	 * a Service used to manage the todo items
 	 */
-	export class TodoListService { // <- ES6 class
+	export class TodoListService implements ITodoListService { // <- ES6 class
 		
 		// keeps the list of tasks 
 		todos: ITodoItem[] = [];
