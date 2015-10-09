@@ -4,6 +4,7 @@
 		"module": "amd"
 	},
 	"exclude": [
-		"./build"
+		"./build",
+		"./typings"
 	]
 }

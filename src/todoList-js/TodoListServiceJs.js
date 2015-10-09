@@ -1,16 +1,15 @@
 /**
  * a Service used to manage the todo items
- * 
- * immagine this is going to interact with an external service
  */
 TodoListJsService.$inject = ["$http"];
 function TodoListJsService($http) {
+	
+	// keeps the todo items list
+	this.todos = [];
 	var self = this;
 
-	this.todos = [];
-
 	function init() {
-		$http.get("/api/list").success(function (todos) {
+		$http.get("/api/list").then(function (todos) {
 			// do not change the instance! can be dangerous depending on how we do the bindings
 			for (var i = 0; i < todos.length; i++) {
 				var itm = todos[i];
@@ -23,7 +22,7 @@ function TodoListJsService($http) {
 	 * adds a new task to the list!
 	 */
 	this.addTodo = function (task) {
-		$http.post("/api/list", { "task": task }).success(function (newTodoItem) {
+		$http.post("/api/list", { "task": task }).then(function (newTodoItem) {
 			// update the local copy
 			self.todos.push(newTodoItem);
 		});
@@ -33,7 +32,7 @@ function TodoListJsService($http) {
 	 * removes a task from the list
 	 */
 	this.removeTodo = function (id) {
-		$http.delete("/api/list/" + id).success(function (deletedItem) {
+		$http.delete("/api/list/" + id).then(function (deletedItem) {
 			// update the local list
 			for (var i = 0; i < self.todos.length; i++) {
 				if (self.todos[i].id === deletedItem.id) {
