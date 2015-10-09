@@ -9,9 +9,9 @@
   "license": "ISC",
   "devDependencies": {
     "gulp": "^3.9.0",
-    "gulp-typescript": "^2.9.0",
-    "gulp-sourcemaps": "^1.5.2",
-    "gulp-tslint": "^3.3.0-beta",
+    "gulp-typescript": "^2.9.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-tslint": "^3.3.0",
     "typescript": "^1.6.2",
     "path": "^0.12.7",
     "gulp-inject": "^3.0.0",
