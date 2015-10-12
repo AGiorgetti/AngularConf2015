@@ -1,6 +1,12 @@
 {
-	"compilerOptions": {
-		"target": "ES5",
-		"module": "amd"
-	}
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "amd"
+  },
+  "exclude": [
+    ".vs",
+    ".vscode",
+    "node_modules",
+    "build"
+  ]
 }
