@@ -12,9 +12,9 @@ namespace AngularConf15 {
 		constructor(
 			private $http: ng.IHttpService
 		) {
-			$http.get("/api/list").then((todos: ITodoItem[]) => { // <- ES6 arrow syntax!
+			$http.get<ITodoItem[]>("/api/list").then((todos) => { // <- ES6 arrow syntax!
 				// do not change the instance! can be dangerous depending on how we do the bindings
-				for(let itm of todos) { // <- Es6 for..of
+				for(let itm of todos.data) { // <- Es6 for..of
 					this.todos.push(itm);
 				}				
 			});
@@ -24,9 +24,9 @@ namespace AngularConf15 {
 		 * adds a new task to the list!
 		 */
 		addTodo(task: string): void {
-			this.$http.post("/api/list", { "task": task }).then((newTodoItem: ITodoItem) => {
+			this.$http.post<ITodoItem>("/api/list", { "task": task }).then((newTodoItem) => {
 				// update the local copy
-				this.todos.push(newTodoItem);
+				this.todos.push(newTodoItem.data);
 			});
 		}
 		
@@ -34,10 +34,10 @@ namespace AngularConf15 {
 		 * removes a task from the list
 		 */
 		removeTodo(id: number): void {
-			this.$http.delete("/api/list/" + id).then((deletedItem: ITodoItem) => {
+			this.$http.delete<ITodoItem>("/api/list/" + id).then((deletedItem) => {
 				// update the local list
 				for (let i = 0; i < this.todos.length; i++) {
-					if (this.todos[i].id === deletedItem.id) {
+					if (this.todos[i].id === deletedItem.data.id) {
 						this.todos.splice(i, 1);
 						return;
 					}
